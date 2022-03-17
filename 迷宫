@@ -1,0 +1,92 @@
+#include<stdio.h>
+#include<stdlib.h>
+void printStr(char a[][17]);
+#include<windows.h>
+#include<conio.h>
+void printfStr(char a[][17],int size)
+{
+	int i;
+	for(i=0;i<size;i++)
+	{
+		puts(a[i]);
+	}
+	return ;
+}
+int main()
+{
+	/*迷宫地图
+	*可以通行
+	#不可以通行
+	s结束
+	*/
+
+   char a[][17]=
+	{
+		"*#*********",
+		"***###*###*",
+		"###**#****#",
+		"*#**###**#*",
+		"***********",
+		"#####*##*##",
+		"**#*****#*E",
+		"***#*###**#",
+		"*#*********",
+	};
+	int b;
+	COORD pos;
+	pos.X = 3;
+	pos.Y = 0;
+	while(1)
+	{
+		system("cls");
+		printfStr(a,10);
+		SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),pos);
+		printf("A");
+		b=getch();
+		if(a[pos.Y][pos.X]=='E')break;
+		switch(b)
+		{
+		case 'w':
+			pos.Y--;
+			if(pos.Y<1)pos.Y=0;
+			if(a[pos.Y][pos.X]=='#')
+			{
+				pos.Y++;
+			}
+			break;
+		case 's':
+			pos.Y++;
+			if(pos.Y>10)pos.Y=10;
+			if(a[pos.Y][pos.X]=='#')
+			{
+				pos.Y--;
+			}
+			break;
+		case 'a':
+			pos.X--;
+			if(pos.X<1)pos.X=0;
+			if(a[pos.Y][pos.X]=='#')
+			{
+				pos.X++;
+			}
+			break;
+		case 'd':
+			pos.X--;
+			if(pos.X<1)pos.X=0;
+			if(a[pos.Y][pos.X]=='#')
+			{
+				pos.X++;
+			}
+			break;
+		case 'b':
+			pos.X++;
+			if(pos.X>20)pos.X=20;
+			if(a[pos.Y][pos.X]=='#')
+			{
+				pos.X--;
+			}
+			break;
+		}
+	}
+	return 0;
+}
